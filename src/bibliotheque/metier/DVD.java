@@ -2,23 +2,22 @@ package bibliotheque.metier;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
-public class DVD extends Ouvrage {
+public class DVD extends Ouvrage{
 
     private long code;
     private LocalTime dureeTotale;
     private byte nbreBonus;
-    private List<String> autresLangues = new ArrayList<>();
-    private List<String> sousTitres = new ArrayList<>();
-
+    private Set<String> autresLangues=new HashSet<>();
+    private Set<String> sousTitres=new HashSet<>();
     public DVD(String titre, int ageMin, LocalDate dateParution, double prixLocation, String langue, String genre, long code, LocalTime dureeTotale, byte nbreBonus) {
         super(titre, ageMin, dateParution, TypeOuvrage.DVD, prixLocation, langue, genre);
-        this.code = code;
-        this.dureeTotale = dureeTotale;
-        this.nbreBonus = nbreBonus;
+        this.code=code;
+       this.dureeTotale=dureeTotale;
+       this.nbreBonus=nbreBonus;
     }
 
     public long getCode() {
@@ -45,19 +44,19 @@ public class DVD extends Ouvrage {
         this.nbreBonus = nbreBonus;
     }
 
-    public List<String> getAutresLangues() {
+    public Set<String> getAutresLangues() {
         return autresLangues;
     }
 
-    public void setAutresLangues(List<String> autresLangues) {
+    public void setAutresLangues(Set<String> autresLangues) {
         this.autresLangues = autresLangues;
     }
 
-    public List<String> getSousTitres() {
+    public Set<String> getSousTitres() {
         return sousTitres;
     }
 
-    public void setSousTitres(List<String> sousTitres) {
+    public void setSousTitres(Set<String> sousTitres) {
         this.sousTitres = sousTitres;
     }
 
@@ -73,7 +72,6 @@ public class DVD extends Ouvrage {
     public int hashCode() {
         return Objects.hash(code);
     }
-
     @Override
     public double amendeRetard(int njours) {
 
@@ -87,12 +85,12 @@ public class DVD extends Ouvrage {
 
     @Override
     public String toString() {
-        return super.toString() + "DVD{" +
+        return super.toString()+"DVD{" +
                 "code=" + code +
                 ", dureeTotale='" + dureeTotale + '\'' +
                 ", nbreBonus=" + nbreBonus +
                 ", autresLangues=" + autresLangues +
                 ", sousTitres=" + sousTitres +
-                "} " + super.toString();
+                "} " ;
     }
 }
