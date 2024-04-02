@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.function.LongConsumer;
 
 import static bibliotheque.utilitaires.Utilitaire.choixListe;
 
@@ -119,7 +120,47 @@ public class Gestion {
     }
 
     private void gestRestitution() {
-        //TODO lister exemplaires en location , choisir l'un d'entre eux, enregistrer sa restitution et éventuellement changer état
+        //fait:_TODO lister exemplaires en location , choisir l'un d'entre eux, enregistrer sa restitution et éventuellement changer état
+        List<Exemplaire> lExLoc= new ArrayList<>();
+        for(Location l : lloc){
+            if(l.getDateRestitution()==null){
+                lExLoc.add(l.getExemplaire());
+            }
+        }
+        if(!(lExLoc.isEmpty())){
+            System.out.println("Choisissez l'exemplaire à retourner :");
+            Exemplaire exemp = lExLoc.get(choixListe(lExLoc)-1);
+            for(Location l : lloc){
+                if(exemp.hashCode() == (l.getExemplaire().hashCode())){
+                    l.setDateRestitution(LocalDate.now());
+                    System.out.println("l'exemplaire " + exemp.getMatricule()+" a été rendu.");
+                    break;
+                }
+            }
+            System.out.println("Changer l'état de l'exemplaire : (1 : oui\n2 : non)\n");
+            int rep;
+            do{
+                rep = sc.nextInt();
+                if(rep!=1 && rep!=2){
+                    System.out.println("erreur");
+                }
+            }
+            while (rep!=1 && rep!=2);
+            if(rep==1){
+                System.out.println("Entrez la nouvelle déscription de l'état de l'exemplaire");
+                String nouvelEtat = sc.nextLine();
+                for(Location l : lloc){
+                    if(exemp.hashCode() == (l.getExemplaire().hashCode())){
+                        l.getExemplaire().setDescriptionEtat(nouvelEtat);
+                        System.out.println("Etat changé.");
+                        break;
+                    }
+                }
+            }
+        }
+        else{
+            System.out.println("Aucun exemplaire loué.");
+        }
     }
 
     private void gestLocations() {
