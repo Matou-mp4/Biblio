@@ -215,7 +215,7 @@ public class Gestion {
         Rayon r = new Rayon(code, genre);
         System.out.println("rayon créé");
         lrayon.add(r);
-        //TODO attribuer par une boucle plusieurs exemplaires, les exemplaires sont triés par ordre de titre de l'ouvrage ,
+        //fait:_TODO attribuer par une boucle plusieurs exemplaires, les exemplaires sont triés par ordre de titre de l'ouvrage ,
         //  ne proposer que les exemplaires qui ne sont pas dans déjà présents dans ce rayon et qui ne sont dans aucun autre rayon
         List<Exemplaire> lExAjout = new ArrayList<>();
         for(Exemplaire e : lex){
@@ -254,7 +254,8 @@ public class Gestion {
         System.out.println("exemplaire créé");
         choix = choixListe(lrayon);
         ex.setRayon(lrayon.get(choix - 1));
-        //TODO attribuer un rayon ==> c'est fait  , nouveauté : les rayons sont triès par ordre de code
+        //fait:_TODO attribuer un rayon ==> c'est fait  , nouveauté : les rayons sont triès par ordre de code
+        lrayon.sort(Comparator.comparing(Rayon::getCodeRayon));
     }
 
     private void gestOuvrages() {
@@ -343,10 +344,27 @@ public class Gestion {
         o = lof.get(choix-1).create();*/
         louv.add(o);
         System.out.println("ouvrage créé");
-        choix = choixListe(laut);
-        o.addAuteur(laut.get(choix - 1));
         //TODO attribuer auteurs par boucle, les auteur sont triés par ordre de nom et prénom,
         // ne pas proposer un auteur déjà présent dans la liste des auteurs de cet ouvrage
+        List<Auteur> lautAjout = new ArrayList<>();
+        for(Auteur a : laut){
+            if(!(o.getLauteurs().contains(a))){
+                lautAjout.add(a);
+            }
+        }
+        lautAjout.sort(Comparator.comparing(Auteur::getNom).thenComparing(Auteur::getPrenom));
+        int rep;
+        do{
+            choix = choixListe(lautAjout);
+            o.addAuteur(lautAjout.get(choix - 1));
+            lautAjout.remove(lautAjout.get(choix - 1));
+            System.out.println("Ajouter un autre exemplaire : appuyer sur <1>");
+            rep = sc.nextInt();
+            if(rep!=1){
+                System.out.println("fin de fonction");
+            }
+        }
+        while (rep==1);
     }
 
     private void gestAuteurs() {
