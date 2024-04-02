@@ -215,12 +215,33 @@ public class Gestion {
         Rayon r = new Rayon(code, genre);
         System.out.println("rayon créé");
         lrayon.add(r);
-        int choix = choixListe(lex);
-        r.addExemplaire(lex.get(choix - 1));
         //TODO attribuer par une boucle plusieurs exemplaires, les exemplaires sont triés par ordre de titre de l'ouvrage ,
         //  ne proposer que les exemplaires qui ne sont pas dans déjà présents dans ce rayon et qui ne sont dans aucun autre rayon
+        List<Exemplaire> lExAjout = new ArrayList<>();
+        for(Exemplaire e : lex){
+            if(e.getRayon()==null){
+                lExAjout.add(e);
+            }
+        }
+        lExAjout.sort(Comparator.comparing(Exemplaire::getMatricule));
+        int choix,rep;
+        do{
+            choix = choixListe(lExAjout);
+            r.addExemplaire(lExAjout.get(choix - 1));
+            for(Exemplaire e : lex){
+                if(lExAjout.get(choix - 1).equals(e)){
+                    e.setRayon(r);
+                }
+            }
+            lExAjout.remove(lExAjout.get(choix - 1));
+            System.out.println("Ajouter un autre exemplaire : appuyer sur <1>");
+            rep = sc.nextInt();
+            if(rep!=1){
+                System.out.println("fin de fonction");
+            }
+        }
+        while (rep==1);
     }
-
     private void gestExemplaires() {
         System.out.println("matricule ");
         String mat = sc.next();
