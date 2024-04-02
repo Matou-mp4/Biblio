@@ -7,10 +7,7 @@ import bibliotheque.utilitaires.LivreFactoryBeta;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.function.LongConsumer;
 
 import static bibliotheque.utilitaires.Utilitaire.choixListe;
@@ -165,7 +162,14 @@ public class Gestion {
 
     private void gestLocations() {
         int choix;
-        //TODO ne lister que les exemplaires libres et les trier par matricule
+        //fait:_TODO ne lister que les exemplaires libres et les trier par matricule
+        List <Exemplaire>lExLibre = new ArrayList<>();
+        for(Exemplaire e : lex){
+            if(!e.enLocation()){
+                lExLibre.add(e);
+            }
+        }
+        lExLibre.sort(Comparator.comparing(Exemplaire::getMatricule));
         choix = choixListe(lex);
         if (lex.get(choix).enLocation()) {
             System.out.println("exemplaire en location");
