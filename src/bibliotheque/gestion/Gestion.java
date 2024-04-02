@@ -344,7 +344,7 @@ public class Gestion {
         o = lof.get(choix-1).create();*/
         louv.add(o);
         System.out.println("ouvrage créé");
-        //TODO attribuer auteurs par boucle, les auteur sont triés par ordre de nom et prénom,
+        //fait:_TODO attribuer auteurs par boucle, les auteur sont triés par ordre de nom et prénom,
         // ne pas proposer un auteur déjà présent dans la liste des auteurs de cet ouvrage
         List<Auteur> lautAjout = new ArrayList<>();
         for(Auteur a : laut){
@@ -358,7 +358,7 @@ public class Gestion {
             choix = choixListe(lautAjout);
             o.addAuteur(lautAjout.get(choix - 1));
             lautAjout.remove(lautAjout.get(choix - 1));
-            System.out.println("Ajouter un autre exemplaire : appuyer sur <1>");
+            System.out.println("Ajouter un autre auteur : appuyer sur <1>");
             rep = sc.nextInt();
             if(rep!=1){
                 System.out.println("fin de fonction");
@@ -379,9 +379,28 @@ public class Gestion {
         System.out.println("écrivain créé");
         int choix = choixListe(louv);
         a.addOuvrage(louv.get(choix - 1));
-        //TODO attribuer ouvrages par boucle
+        //fait:_TODO attribuer ouvrages par boucle
         // les ouvrages sont triés par ordre de titre
         // ne pas proposer un ouvrage déjà présent dans la liste des ouvrages de cet auteur
+        List<Ouvrage> louvAjout = new ArrayList<>();
+        for(Ouvrage o : louv){
+            if(!(a.getLouvrage().contains(o))){
+                louvAjout.add(o);
+            }
+        }
+        louvAjout.sort(Comparator.comparing(Ouvrage::getTitre));
+        int rep;
+        do{
+            choix = choixListe(louvAjout);
+            a.addOuvrage(louvAjout.get(choix - 1));
+            louvAjout.remove(louvAjout.get(choix - 1));
+            System.out.println("Ajouter un autre ouvrages : appuyer sur <1>");
+            rep = sc.nextInt();
+            if(rep!=1){
+                System.out.println("fin de fonction");
+            }
+        }
+        while (rep==1);
     }
 
     public static void main(String[] args) {
