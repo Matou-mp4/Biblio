@@ -1,8 +1,6 @@
 package bibliotheque.metier;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import static bibliotheque.metier.TypeOuvrage.LIVRE;
 
@@ -10,8 +8,8 @@ import static bibliotheque.metier.TypeOuvrage.LIVRE;
 public class Auteur {
     private  String nom,prenom;
     private String nationalite;
-    private List<Ouvrage> louvrage = new ArrayList<>();
-    //TODO remplacer par set
+    private Set<Ouvrage> louvrage = new HashSet<>();
+    //Fait:_TODO remplacer par set
 
     public Auteur(String nom, String prenom, String nationalite) {
         this.nom = nom;
@@ -44,11 +42,11 @@ public class Auteur {
         this.nationalite = nationalite;
     }
 
-    public List<Ouvrage> getLouvrage() {
+    public Set<Ouvrage> getLouvrage() {
         return louvrage;
     }
 
-    public void setLouvrage(List<Ouvrage> louvrage) {
+    public void setLouvrage(Set<Ouvrage> louvrage) {
         this.louvrage = louvrage;
     }
 
@@ -86,13 +84,13 @@ public class Auteur {
         o.getLauteurs().remove(this);
     }
 
-    public List<Ouvrage> listerOuvrages(){
+    public Set<Ouvrage> listerOuvrages(){
 
         return louvrage;
     }
 
-    public List<Ouvrage> listerOuvrages(TypeOuvrage to){
-        List<Ouvrage> lot = new ArrayList<>();
+    public Set<Ouvrage> listerOuvrages(TypeOuvrage to){
+        Set<Ouvrage> lot = new HashSet<>();
         for(Ouvrage o : louvrage){
             if(o.getTo().equals(to)) lot.add(o);
         }
@@ -108,8 +106,8 @@ public class Auteur {
         }
         return ll;
     }
-    public List<Ouvrage> listerOuvrages(String genre){
-        List<Ouvrage> lot = new ArrayList<>();
+    public Set<Ouvrage> listerOuvrages(String genre){
+        Set<Ouvrage> lot = new HashSet<>();
         for(Ouvrage o : louvrage){
             if(o.getGenre().equals(genre)) lot.add(o);
         }
