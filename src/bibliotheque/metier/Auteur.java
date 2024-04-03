@@ -9,7 +9,7 @@ public class Auteur {
     private  String nom,prenom;
     private String nationalite;
     private Set<Ouvrage> louvrage = new HashSet<>();
-    //Fait:_TODO remplacer par set
+
 
     public Auteur(String nom, String prenom, String nationalite) {
         this.nom = nom;
@@ -89,8 +89,8 @@ public class Auteur {
         return louvrage;
     }
 
-    public Set<Ouvrage> listerOuvrages(TypeOuvrage to){
-        Set<Ouvrage> lot = new HashSet<>();
+    public List<Ouvrage> listerOuvrages(TypeOuvrage to){
+        List<Ouvrage> lot = new ArrayList<>();
         for(Ouvrage o : louvrage){
             if(o.getTo().equals(to)) lot.add(o);
         }
@@ -106,8 +106,8 @@ public class Auteur {
         }
         return ll;
     }
-    public Set<Ouvrage> listerOuvrages(String genre){
-        Set<Ouvrage> lot = new HashSet<>();
+    public List<Ouvrage> listerOuvrages(String genre){
+        List<Ouvrage> lot = new ArrayList<>();
         for(Ouvrage o : louvrage){
             if(o.getGenre().equals(genre)) lot.add(o);
         }

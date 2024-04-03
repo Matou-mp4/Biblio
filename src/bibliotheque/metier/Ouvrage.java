@@ -16,9 +16,9 @@ public abstract class Ouvrage {
     protected String genre;
 
     protected Set<Auteur> lauteurs=new HashSet<>();
-    //fait:_TODO remplacer par set
+
     protected Set<Exemplaire> lex = new HashSet<>();
-    //fait:_TODO remplacer par set
+
 
     public Ouvrage(String titre, int ageMin, LocalDate dateParution, TypeOuvrage to, double prixLocation, String langue, String genre) {
         this.titre = titre;
@@ -141,8 +141,8 @@ public abstract class Ouvrage {
         return lex;
     }
 
-    public Set<Exemplaire>listerExemplaires(boolean enLocation){
-        Set<Exemplaire> lex2 = new HashSet<>();
+    public List<Exemplaire>listerExemplaires(boolean enLocation){
+        List<Exemplaire> lex2 = new ArrayList<>();
         for(Exemplaire ex : lex){
             if(ex.enLocation()==enLocation) lex2.add(ex);
         }

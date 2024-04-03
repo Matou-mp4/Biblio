@@ -6,7 +6,7 @@ public class Rayon {
     private String codeRayon;
     private String genre;
     private Set<Exemplaire> lex = new HashSet<>();
-    //fait:_TODO remplacer par set
+
 
     public Rayon(String codeRayon, String genre) {
         this.codeRayon = codeRayon;
