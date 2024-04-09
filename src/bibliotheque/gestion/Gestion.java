@@ -20,7 +20,7 @@ public class Gestion {
     private List<Ouvrage> louv= new ArrayList<>();
     private List<Exemplaire> lex = new ArrayList<>();
     private List<Rayon> lrayon= new ArrayList<>();
-    private List<Location> lloc = new ArrayList<>();
+//    private List<Location> lloc = new ArrayList<>();
 
 
     public void populate(){
@@ -72,15 +72,19 @@ public class Gestion {
         Lecteur lec = new Lecteur(1,"Dupont","Jean",LocalDate.of(2000,1,4),"Mons","jean.dupont@mail.com","0458774411");
         llect.add(lec);
 
-        Location loc = new Location(LocalDate.of(2023,2,1),LocalDate.of(2023,3,1),lec,e);
-        lloc.add(loc);
-        loc.setDateRestitution(LocalDate.of(2023,2,4));
+//        Location loc = new Location(LocalDate.of(2023,2,1),LocalDate.of(2023,3,1),lec,e);
+//        lloc.add(loc);
+//        loc.setDateRestitution(LocalDate.of(2023,2,4));
+        Exemplaire.lloc.put(e,lec);
 
         lec = new Lecteur(1,"Durant","Aline",LocalDate.of(1980,10,10),"Binche","aline.durant@mail.com","045874444");
         llect.add(lec);
 
-        loc = new Location(LocalDate.of(2023,2,5),LocalDate.of(2023,3,5),lec,e);
+        /*loc = new Location(LocalDate.of(2023,2,5),LocalDate.of(2023,3,5),lec,e);
         lloc.add(loc);
+
+        */
+        Exemplaire.lloc.put(e,lec);
     }
 
     private void menu() {
@@ -103,6 +107,48 @@ public class Gestion {
 
     private void gestRestitution() {
         //TODO lister exemplaires en location , choisir l'un d'entre eux, enregistrer sa restitution et éventuellement changer état
+        List<Exemplaire> lExLoc= new ArrayList<>();
+
+        for(Exemplaire e : Exemplaire.lloc.keySet()){
+            //if(l.getDateRestitution()==null){
+            lExLoc.add(e);
+            //}
+        }
+        if(!(lExLoc.isEmpty())){
+            System.out.println("Choisissez l'exemplaire à retourner :");
+            Exemplaire exemp = lExLoc.get(choixListe(lExLoc)-1);
+            for(Exemplaire e : Exemplaire.lloc.keySet()){
+                if(exemp.hashCode() == (e.hashCode())){
+                    Exemplaire.lloc.remove(e);
+                    System.out.println("l'exemplaire " + exemp.getMatricule()+" a été rendu.");
+                    break;
+                }
+            }
+            System.out.println("Changer l'état de l'exemplaire : (1 : oui\n2 : non)\n");
+            int rep;
+            do{
+                rep = sc.nextInt();
+                if(rep!=1 && rep!=2){
+                    System.out.println("erreur");
+                }
+            }
+            while (rep!=1 && rep!=2);
+            if(rep==1){
+                System.out.println("Entrez la nouvelle déscription de l'état de l'exemplaire");
+                String nouvelEtat = sc.nextLine();
+                for(Exemplaire e : Exemplaire.lloc.keySet()){
+                    if(exemp.hashCode() == (e.hashCode())){
+                        e.setDescriptionEtat(nouvelEtat);
+                        System.out.println("Etat changé.");
+                        break;
+                    }
+                    //utiliser equals la prochaine fois
+                }
+            }
+        }
+        else{
+            System.out.println("Aucun exemplaire loué.");
+        }
     }
 
     private void gestLocations() {
@@ -119,7 +165,8 @@ public class Gestion {
         choix=choixListe(llect);
         if(choix==0)return;
         Lecteur lec = llect.get(choix-1);
-        lloc.add(new Location(lec,ex));
+//        lloc.add(new Location(lec,ex));
+        Exemplaire.lloc.put(ex,lec);
     }
 
     private void gestLecteurs() {
