@@ -1,31 +1,31 @@
 package bibliotheque.mvc.view;
 
-import bibliotheque.metier.Auteur;
 import bibliotheque.metier.Exemplaire;
-import bibliotheque.mvc.controller.AuteurController;
 import bibliotheque.mvc.controller.ExemplaireController;
 import bibliotheque.mvc.observer.Observer;
 
 import java.util.List;
 
-public abstract class AbstractViewExemplaire implements Observer {
-    protected ExemplaireController exemplaireController;
-    protected List<Exemplaire> lex;
 
-    public void setExemplaireController(ExemplaireController exemplaireController) {
-        this.exemplaireController = exemplaireController;
+public abstract  class AbstractViewExemplaire implements Observer {
+
+    protected ExemplaireController ExemplaireController;
+    protected List<Exemplaire> la;
+
+    public void setController(ExemplaireController ExemplaireController) {
+        this.ExemplaireController = ExemplaireController;
     }
 
-    public void setLex(List<Exemplaire> lex) {
-        this.lex = lex;
-    }
     public abstract void menu();
 
-    public abstract void affList(List lex);
+    public abstract void affList(List la);
 
+    public List<Exemplaire> getAll(){
+        return la;
+    }
     @Override
-    public void update(List lex) {
-        this.lex=lex;
-        affList(lex);
+    public void update(List la) {
+        this.la = la;
+        affList(la);
     }
 }
