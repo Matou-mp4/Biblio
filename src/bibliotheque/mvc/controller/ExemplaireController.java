@@ -1,8 +1,12 @@
 package bibliotheque.mvc.controller;
 
+import bibliotheque.metier.DVD;
+import bibliotheque.metier.Exemplaire;
 import bibliotheque.mvc.model.DAOExemplaire;
 import bibliotheque.mvc.view.AbstractViewAuteur;
 import bibliotheque.mvc.view.AbstractViewExemplaire;
+
+import java.util.List;
 
 public class ExemplaireController {
     protected DAOExemplaire model;
@@ -13,5 +17,28 @@ public class ExemplaireController {
         this.view = view;
         this.view.setController(this);
     }
+    public List<Exemplaire> getAll(){
+        List<Exemplaire> l = model.getAll();
+        return l;
+    }
 
+    public Exemplaire add( DVD elt) {
+        Exemplaire nelt = model.add(elt);
+        return nelt;
+    }
+
+
+    public boolean remove(Exemplaire elt) {
+        return model.remove(elt);
+    }
+    public Exemplaire update(Exemplaire elt) {
+        return model.update(elt);
+    }
+
+    public Exemplaire search(Exemplaire rech) {
+        return  model.read(rech);
+    }
+    public List<DVD> listerExemplaire(Exemplaire ex) {
+        return model.listerExemplaire(ex);
+    }
 }
