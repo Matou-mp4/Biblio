@@ -12,9 +12,7 @@ public interface DAOSpecialAuteur {
 
     public Set<Ouvrage> listerOuvrages(Auteur a);
 
-
     public List<Livre> listerLivre(Auteur a, TypeLivre tl);
-
 
     public List<Ouvrage> listerOuvrages(Auteur a, String genre);
 }
