@@ -4,7 +4,6 @@ import bibliotheque.metier.Auteur;
 import bibliotheque.metier.Livre;
 import bibliotheque.metier.Ouvrage;
 import bibliotheque.metier.TypeLivre;
-import bibliotheque.mvc.model.DAOSpecialAuteur;
 
 import java.util.List;
 import java.util.Set;
