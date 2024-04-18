@@ -1,9 +1,6 @@
 package bibliotheque.mvc.view;
 
-import bibliotheque.metier.Exemplaire;
-import bibliotheque.metier.Mail;
-import bibliotheque.metier.Ouvrage;
-import bibliotheque.metier.Rayon;
+import bibliotheque.metier.*;
 import bibliotheque.mvc.GestionMVC;
 import bibliotheque.mvc.controller.ControllerSpecialExemplaire;
 import java.util.Arrays;
@@ -103,7 +100,7 @@ public class ExemplaireViewConsole extends AbstractView<Exemplaire> {
                 String descr = sc.nextLine();
                 System.out.println("ouvrage : ");
                 List<Ouvrage> lo = GestionMVC.ov.getAll();
-                //TODO présenter les ouvrages par ordre de titre ==> classe anonyme
+                //_TODO présenter les ouvrages par ordre de titre ==> classe anonyme
                 lo.sort(new Comparator<Ouvrage>() {
                     @Override
                     public int compare(Ouvrage o1, Ouvrage o2) {
@@ -114,7 +111,7 @@ public class ExemplaireViewConsole extends AbstractView<Exemplaire> {
                 a = new Exemplaire(mat, descr,lo.get(ch-1));
                 System.out.println("rayon");
                 List<Rayon> lr = GestionMVC.rv.getAll();
-                //TODO présenter les rayons par ordre de code ==> classe anonyme
+                //_TODO présenter les rayons par ordre de code ==> classe anonyme
                 lr.sort(new Comparator<Rayon>() {
                     @Override
                     public int compare(Rayon o1, Rayon o2) {
@@ -168,7 +165,10 @@ public class ExemplaireViewConsole extends AbstractView<Exemplaire> {
    }
 
     private void louer(Exemplaire a) {
-        //TODO chosir un lecteur et enregistrer la location dans LOCATIONS
+        int choix = choixListe(GestionMVC.lm.getAll());
+        Lecteur lecteur = GestionMVC.lm.getAll().get(choix-1);
+        GestionMVC.LOCATIONS.put(a,lecteur);
+        //_TODO chosir un lecteur et enregistrer la location dans LOCATIONS
     }
 
 
