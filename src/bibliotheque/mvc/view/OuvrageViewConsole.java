@@ -2,6 +2,7 @@ package bibliotheque.mvc.view;
 
 import bibliotheque.metier.Exemplaire;
 import bibliotheque.metier.Ouvrage;
+import bibliotheque.metier.TypeLivre;
 import bibliotheque.metier.TypeOuvrage;
 import bibliotheque.mvc.controller.ControllerSpecialOuvrage;
 import bibliotheque.utilitaires.*;
@@ -58,7 +59,25 @@ public class OuvrageViewConsole extends AbstractView<Ouvrage> {
 
 
     public void rechercher() {
-        //TODO rechercher ouvrage en demandant type d'ouvrage, puis l'info unique relative à au type recherché
+        int cpt = 1;
+        System.out.println("Choisissez le type d'ouvrage souhaité : ");
+        for (TypeOuvrage T : TypeOuvrage.values()) {
+            System.out.println(cpt+".  "+T);
+            cpt++;
+        }
+        System.out.println("Votre choix : ");
+        int choix = sc.nextInt();
+        List<Ouvrage> lo = new ArrayList<>();
+        switch (choix){
+            case 1 : lo = listParType(TypeOuvrage.LIVRE); break;
+            case 2 : lo = listParType(TypeOuvrage.CD); break;
+            case 3 : lo = listParType(TypeOuvrage.DVD); break;
+            default: System.out.println("erreur"); break;
+        }
+        choix=choixListe(lo);
+        System.out.println(lo.get(choix-1));
+
+        //_TODO rechercher ouvrage en demandant type d'ouvrage, puis l'info unique relative à au type recherché
     }
 
 
@@ -125,6 +144,15 @@ public class OuvrageViewConsole extends AbstractView<Ouvrage> {
     public void exemplaires(Ouvrage o) {
         List<Exemplaire> l= ((ControllerSpecialOuvrage)controller).listerExemplaire(o);
         affList(l);
+    }
+    public List<Ouvrage> listParType(TypeOuvrage t){
+        List<Ouvrage> newListO = new ArrayList<>();
+        for (Ouvrage l: la) {
+            if(l.getTo()==t){
+                newListO.add(l);
+            }
+        }
+        return newListO;
     }
     @Override
     public void affList(List la) {
