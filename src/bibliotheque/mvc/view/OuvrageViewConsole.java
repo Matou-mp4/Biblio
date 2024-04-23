@@ -1,16 +1,12 @@
 package bibliotheque.mvc.view;
 
-import bibliotheque.metier.Exemplaire;
-import bibliotheque.metier.Ouvrage;
-import bibliotheque.metier.TypeLivre;
-import bibliotheque.metier.TypeOuvrage;
+import bibliotheque.metier.*;
+import bibliotheque.mvc.GestionMVC;
 import bibliotheque.mvc.controller.ControllerSpecialOuvrage;
+import bibliotheque.mvc.model.ModelAuteur;
 import bibliotheque.utilitaires.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import static bibliotheque.utilitaires.Utilitaire.*;
 
@@ -104,9 +100,27 @@ public class OuvrageViewConsole extends AbstractView<Ouvrage> {
         Ouvrage a = null;
         List<OuvrageFactory> lof = new ArrayList<>(Arrays.asList(new LivreFactory(),new CDFactory(),new DVDFactory()));
         a = lof.get(choix-1).create();
-        //TODO affecter un ou plusieurs auteurs
-        //TODO trier les auteurs présentés par ordre de nom et prénom  ==>  classe anonyme
-        //TODO ne pas présenter les auteurs déjà enregistrés pour cet ouvrage
+        List<Auteur> laut = GestionMVC.am.getAll();
+        laut.sort(new Comparator<Auteur>() {
+            @Override
+            public int compare(Auteur o1, Auteur o2) {
+                return o1.getNom().compareTo(o2.getNom());
+            }
+        });
+        do{
+
+            System.out.println("Votre choix : ");
+            choix = choixListe(laut);
+            a.addAuteur(laut.get(choix-1));
+            laut.remove(choix-1);
+            System.out.println("Ajouter un autre auteur : ");
+            System.out.println("oui : 1");
+            System.out.println("non : 2");
+        }
+        while(choix==1);
+        //_TODO affecter un ou plusieurs auteurs
+        //_TODO trier les auteurs présentés par ordre de nom et prénom  ==>  classe anonyme
+        //_TODO ne pas présenter les auteurs déjà enregistrés pour cet ouvrage
         controller.add(a);
     }
 
