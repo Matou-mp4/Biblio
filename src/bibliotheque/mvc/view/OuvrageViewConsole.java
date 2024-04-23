@@ -104,7 +104,12 @@ public class OuvrageViewConsole extends AbstractView<Ouvrage> {
         laut.sort(new Comparator<Auteur>() {
             @Override
             public int compare(Auteur o1, Auteur o2) {
-                return o1.getNom().compareTo(o2.getNom());
+                int c = o1.getNom().compareTo(o2.getNom());
+                if (!(c == 0)) {
+                    return c;
+                } else {
+                    return o1.getPrenom().compareTo(o2.getPrenom());
+                }
             }
         });
         do{
