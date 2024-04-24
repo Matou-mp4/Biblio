@@ -102,23 +102,13 @@ public class ExemplaireViewConsole extends AbstractView<Exemplaire> {
                 String descr = sc.nextLine();
                 System.out.println("ouvrage : ");
                 List<Ouvrage> lo = GestionMVC.ov.getAll();
-                lo.sort(new Comparator<Ouvrage>() {
-                    @Override
-                    public int compare(Ouvrage o1, Ouvrage o2) {
-                        return o1.getTitre().compareTo(o2.getTitre());
-                    }
-                });
+                lo.sort((o1, o2) -> o1.getTitre().compareTo(o2.getTitre()));
                 //TODO présenter les ouvrages par ordre de titre ==> lambda
                 int ch = choixListe(lo);
                 a = new Exemplaire(mat, descr,lo.get(ch-1));
                 System.out.println("rayon");
                 List<Rayon> lr = GestionMVC.rv.getAll();
-                lr.sort(new Comparator<Rayon>() {
-                    @Override
-                    public int compare(Rayon o1, Rayon o2) {
-                        return o1.getCodeRayon().compareTo(o2.getCodeRayon());
-                    }
-                });
+                lr.sort((o1, o2) -> o1.getCodeRayon().compareTo(o2.getCodeRayon()));
                 //TODO présenter les rayons par ordre de code ==> lambda
                 ch= choixListe(lr);
                 a.setRayon(lr.get(ch-1));
