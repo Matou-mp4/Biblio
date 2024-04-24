@@ -78,21 +78,13 @@ public class LecteurViewConsole extends AbstractView<Lecteur> {
         Lecteur l  = la.get(choix-1);
          do {
             try {
-                LocalDate dn = l.getDn();
                 String nom = modifyIfNotBlank("nom", l.getNom());
                 String prenom = modifyIfNotBlank("prénom", l.getPrenom());
                 String mail = modifyIfNotBlank("nationalité", l.getMail());
-                String adresse = modifyIfNotBlank("adresse", l.getAdresse());
-                String tel = modifyIfNotBlank("numéro de téléphone", l.getTel());
-                String d = modifyIfNotBlank("date", (dn).toString());
                 l.setNom(nom);
                 l.setPrenom(prenom);
                 l.setMail(mail);
-                l.setAdresse(adresse);
-                l.setTel(tel);
-                l.setDn(LocalDate.parse(d));
-                //_TODO gérer autres valeurs
-
+                //TODO gérer autres valeurs
                 break;
             } catch (Exception e) {
                 System.out.println("erreur :" + e);
