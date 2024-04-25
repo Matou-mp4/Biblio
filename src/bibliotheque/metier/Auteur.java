@@ -96,8 +96,8 @@ public class Auteur {
     }
     public List<Livre> listerLivres(TypeLivre tl){
         List<Livre>ll = new ArrayList<>();
-        louvrage.stream().filter(o->o.getTo().equals(LIVRE)).filter(o->((Livre)o).getTl().equals(tl)).forEach(o->ll.add((Livre)o));
-        return ll;
+       listerOuvrages(LIVRE).stream().filter(l->((Livre)l).getTl().equals(tl)).forEach(l->ll.add((Livre)l));
+       return ll;
     }
     public List<Ouvrage> listerOuvrages(String genre){
         List<Ouvrage> lot = new ArrayList<>();
